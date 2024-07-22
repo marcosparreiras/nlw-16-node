@@ -13,6 +13,7 @@ import { createLink } from "./routes/create-link";
 import { getLinks } from "./routes/get-links";
 import { getParticipants } from "./routes/get-participants";
 import { createInvite } from "./routes/create-invite";
+import { updateTrip } from "./routes/update-trip";
 
 const app = fastify();
 app.register(cors, {
@@ -31,6 +32,7 @@ app.register(createLink);
 app.register(getLinks);
 app.register(getParticipants);
 app.register(createInvite);
+app.register(updateTrip);
 
 app.listen({ port: Number(process.env.PORT) }).then(() => {
   console.log(`Server is running on port ${process.env.PORT} 🚀`);
