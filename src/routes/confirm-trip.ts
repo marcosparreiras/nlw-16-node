@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import { getMailClient } from "../lib/mail";
 import { dayjs } from "../lib/dayjs";
 import nodemailer from "nodemailer";
+import { ClientError } from "../erros/client-error";
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -31,7 +32,7 @@ export async function confirmTrip(app: FastifyInstance) {
       });
 
       if (trip === null) {
-        throw new Error("Trip not found");
+        throw new ClientError("Trip not found");
       }
       if (trip.isConfirmed) {
         return reply.redirect(`http://localhost:3000/trips/${id}`);
