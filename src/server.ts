@@ -17,6 +17,7 @@ import { updateTrip } from "./routes/update-trip";
 import { getTripDatails } from "./routes/get-trip-details";
 import { getParticipant } from "./routes/get-participant";
 import { errorHandler } from "./middlewares/error-handler";
+import { env } from "./env";
 
 const app = fastify();
 app.register(cors, {
@@ -41,6 +42,6 @@ app.register(getParticipant);
 
 app.setErrorHandler(errorHandler);
 
-app.listen({ port: Number(process.env.PORT) }).then(() => {
-  console.log(`Server is running on port ${process.env.PORT} 🚀`);
+app.listen({ port: env.PORT }).then(() => {
+  console.log(`Server is running on port ${env.PORT} 🚀`);
 });

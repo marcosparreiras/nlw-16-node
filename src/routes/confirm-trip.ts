@@ -6,6 +6,7 @@ import { getMailClient } from "../lib/mail";
 import { dayjs } from "../lib/dayjs";
 import nodemailer from "nodemailer";
 import { ClientError } from "../erros/client-error";
+import { env } from "../env";
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -49,7 +50,7 @@ export async function confirmTrip(app: FastifyInstance) {
 
       const messages = await Promise.all(
         trip.particpants.map((participant) => {
-          const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`;
+          const confirmationLink = `${env.FRONT_END_BASE_URL}/participants/${participant.id}/confirm`;
           return mail.sendMail({
             from: {
               name: "Equpe Plann.er",
