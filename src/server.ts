@@ -6,6 +6,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
+import { confirmParticipant } from "./routes/confirm-participant";
 
 const app = fastify();
 app.register(cors, {
@@ -17,6 +18,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.register(createTrip);
 app.register(confirmTrip);
+app.register(confirmParticipant);
 
 app.listen({ port: Number(process.env.PORT) }).then(() => {
   console.log(`Server is running on port ${process.env.PORT} 🚀`);
