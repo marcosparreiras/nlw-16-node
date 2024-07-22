@@ -36,7 +36,7 @@ export async function confirmTrip(app: FastifyInstance) {
         throw new ClientError("Trip not found");
       }
       if (trip.isConfirmed) {
-        return reply.redirect(`http://localhost:3000/trips/${id}`);
+        return reply.redirect(`${env.FRONT_END_BASE_URL}/trips/${id}`);
       }
       await prisma.trip.update({
         where: { id },
@@ -50,7 +50,7 @@ export async function confirmTrip(app: FastifyInstance) {
 
       const messages = await Promise.all(
         trip.particpants.map((participant) => {
-          const confirmationLink = `${env.FRONT_END_BASE_URL}/participants/${participant.id}/confirm`;
+          const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`;
           return mail.sendMail({
             from: {
               name: "Equpe Plann.er",
@@ -80,7 +80,7 @@ export async function confirmTrip(app: FastifyInstance) {
         console.log(nodemailer.getTestMessageUrl(message));
       });
 
-      return reply.redirect(`http://localhost:3000/trips/${id}`);
+      return reply.redirect(`${env.FRONT_END_BASE_URL}/trips/${id}`);
     }
   );
 }

@@ -43,7 +43,7 @@ export async function createInvite(app: FastifyInstance) {
       const formattedStartDate = dayjs(trip.startsAt).format("LL");
       const formattedEndDate = dayjs(trip.endsAt).format("LL");
       const mail = await getMailClient();
-      const confirmationLink = `${env.FRONT_END_BASE_URL}/participants/${participant.id}/confirm`;
+      const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`;
 
       const message = await mail.sendMail({
         from: {
