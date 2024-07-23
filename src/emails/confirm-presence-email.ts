@@ -1,5 +1,4 @@
 import type { Email } from "../bondaries/email-provider";
-import { dayjs } from "../lib/dayjs";
 import { env } from "../env";
 import { EmailSuperType } from "./email-super-type";
 
