@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { ClientError } from "../erros/client-error";
-import { dayjs } from "../lib/dayjs";
+import { dayjs } from "../../lib/dayjs";
 import { Participant } from "./participant";
 import type { Link } from "./link";
 import type { Activity } from "./activity";
@@ -12,6 +12,7 @@ export class Trip {
   private endsAt: Date;
   private ownerName: string;
   private ownerEmail: string;
+  private isConfirmed: boolean;
   private participants: Participant[];
   private links: Link[];
   private activities: Activity[];
@@ -34,16 +35,21 @@ export class Trip {
   public getOwnerEmail(): string {
     return this.ownerEmail;
   }
+  public getIsConfirmed(): boolean {
+    return this.isConfirmed;
+  }
   public getParticipants(): Participant[] {
     return this.participants;
   }
-
   public getLinks(): Link[] {
     return this.links;
   }
-
   public getActivities(): Activity[] {
     return this.activities;
+  }
+
+  public confirm(): void {
+    this.isConfirmed = true;
   }
 
   private constructor(
@@ -53,6 +59,7 @@ export class Trip {
     endsAt: Date,
     ownerName: string,
     ownerEmail: string,
+    isConfirmed: boolean,
     participants: Participant[],
     links: Link[],
     activities: Activity[]
@@ -70,6 +77,7 @@ export class Trip {
     this.endsAt = endsAt;
     this.ownerName = ownerName;
     this.ownerEmail = ownerEmail;
+    this.isConfirmed = isConfirmed;
     this.participants = participants;
     this.links = links;
     this.activities = activities;
@@ -84,6 +92,7 @@ export class Trip {
     participantsEmails: string[];
   }): Trip {
     const id = randomUUID();
+    const isConfirmed = false;
     const participants: Participant[] = input.participantsEmails.map((email) =>
       Participant.createByEmail(email)
     );
@@ -96,6 +105,7 @@ export class Trip {
       input.endsAt,
       input.ownerName,
       input.ownerEmail,
+      isConfirmed,
       participants,
       links,
       activities

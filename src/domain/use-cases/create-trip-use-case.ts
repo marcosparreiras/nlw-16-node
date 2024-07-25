@@ -1,6 +1,6 @@
 import type { EmailProvider } from "../bondaries/email-provider";
 import type { TripRepository } from "../bondaries/trip-repository";
-import { ConfirmTripEmail } from "../emails/confirm-trip-email";
+import { ConfirmTripEmail } from "../../emails/confirm-trip-email";
 import { Trip } from "../entities/trip";
 
 type Input = {
@@ -32,7 +32,7 @@ export class CreateTripUseCase {
       participantsEmails: input.emailsToInvite,
     });
 
-    await this.tripRepository.save(trip);
+    await this.tripRepository.create(trip);
 
     const email = ConfirmTripEmail.create({
       destination: input.destination,
