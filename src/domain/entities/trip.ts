@@ -3,7 +3,7 @@ import { ClientError } from "../erros/client-error";
 import { dayjs } from "../../lib/dayjs";
 import { Participant } from "./participant";
 import type { Link } from "./link";
-import type { Activity } from "./activity";
+import { Activity } from "./activity";
 
 export class Trip {
   private id: string;
@@ -50,6 +50,20 @@ export class Trip {
 
   public confirm(): void {
     this.isConfirmed = true;
+  }
+
+  public confirmParticipant(participantId: string): void {
+    const participant = this.participants.find(
+      (p) => p.getId() === participantId
+    );
+    if (!participant) return;
+    participant.confirm();
+  }
+
+  public createActivity(title: string, occursAt: Date): Activity {
+    const activity = Activity.create({ title, occurs_at: occursAt });
+    this.activities.push(activity);
+    return activity;
   }
 
   private constructor(
