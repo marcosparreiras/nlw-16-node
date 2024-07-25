@@ -3,12 +3,15 @@ import { InMemoryTripRepository } from "../stubs/in-memory-trip-repository";
 import { CreateActivityUseCase } from "./create-activity-use-case";
 
 describe("CreateActivityUseCase", () => {
-  it("Should be able to create a trip activity", async () => {
-    const tripRepository: InMemoryTripRepository = new InMemoryTripRepository();
-    const sut: CreateActivityUseCase = new CreateActivityUseCase(
-      tripRepository
-    );
+  let tripRepository: InMemoryTripRepository;
+  let sut: CreateActivityUseCase;
 
+  beforeEach(() => {
+    tripRepository = new InMemoryTripRepository();
+    sut = new CreateActivityUseCase(tripRepository);
+  });
+
+  it("Should be able to create a trip activity", async () => {
     const trip = Trip.createWithPaticipantsEmails({
       destination: "Belo Horiozonte",
       startsAt: new Date("2030-01-01"),

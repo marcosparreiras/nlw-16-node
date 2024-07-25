@@ -56,8 +56,16 @@ export class Trip {
     const participant = this.participants.find(
       (p) => p.getId() === participantId
     );
-    if (!participant) return;
+    if (!participant) {
+      throw new ClientError("Paticipant not found");
+    }
     participant.confirm();
+  }
+
+  public inviteParticipant(email: string): Participant {
+    const participant = Participant.createByEmail(email);
+    this.participants.push(participant);
+    return participant;
   }
 
   public createActivity(title: string, occursAt: Date): Activity {

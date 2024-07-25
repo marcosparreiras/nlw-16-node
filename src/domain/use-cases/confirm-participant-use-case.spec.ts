@@ -24,6 +24,7 @@ describe("ConfirmParticipantUseCase", () => {
     tripRepository.items.push(trip);
 
     const input = {
+      tripId: trip.getId(),
       participantId: trip.getParticipants()[0].getId(),
     };
 
