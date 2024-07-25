@@ -2,6 +2,8 @@ import { randomUUID } from "node:crypto";
 import { ClientError } from "../erros/client-error";
 import { dayjs } from "../lib/dayjs";
 import { Participant } from "./participant";
+import type { Link } from "./link";
+import type { Activity } from "./activity";
 
 export class Trip {
   private id: string;
@@ -11,6 +13,8 @@ export class Trip {
   private ownerName: string;
   private ownerEmail: string;
   private participants: Participant[];
+  private links: Link[];
+  private activities: Activity[];
 
   public getId(): string {
     return this.id;
@@ -34,6 +38,14 @@ export class Trip {
     return this.participants;
   }
 
+  public getLinks(): Link[] {
+    return this.links;
+  }
+
+  public getActivities(): Activity[] {
+    return this.activities;
+  }
+
   private constructor(
     id: string,
     destination: string,
@@ -41,7 +53,9 @@ export class Trip {
     endsAt: Date,
     ownerName: string,
     ownerEmail: string,
-    participants: Participant[]
+    participants: Participant[],
+    links: Link[],
+    activities: Activity[]
   ) {
     if (dayjs(startsAt).isBefore(new Date())) {
       throw new ClientError("Invalid trip start date");
@@ -57,6 +71,8 @@ export class Trip {
     this.ownerName = ownerName;
     this.ownerEmail = ownerEmail;
     this.participants = participants;
+    this.links = links;
+    this.activities = activities;
   }
 
   public static createWithPaticipantsEmails(input: {
@@ -71,6 +87,8 @@ export class Trip {
     const participants: Participant[] = input.participantsEmails.map((email) =>
       Participant.createByEmail(email)
     );
+    const links: Link[] = [];
+    const activities: Activity[] = [];
     return new Trip(
       id,
       input.destination,
@@ -78,7 +96,9 @@ export class Trip {
       input.endsAt,
       input.ownerName,
       input.ownerEmail,
-      participants
+      participants,
+      links,
+      activities
     );
   }
 }

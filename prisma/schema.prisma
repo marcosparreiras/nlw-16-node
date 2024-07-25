@@ -23,8 +23,7 @@ model Trip {
 }
 
 model Particpant {
-  id String @id @default(uuid())
-
+  id          String  @id @default(uuid())
   name        String?
   email       String
   isConfirmed Boolean @default(false) @map("is_confirmed")
