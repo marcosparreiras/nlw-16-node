@@ -1,9 +1,9 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { dayjs } from "../lib/dayjs";
-import { prisma } from "../lib/prisma";
-import { ClientError } from "../erros/client-error";
+import { dayjs } from "../../lib/dayjs";
+import { prisma } from "../../lib/prisma";
+import { ClientError } from "../../domain/erros/client-error";
 
 export async function updateTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(

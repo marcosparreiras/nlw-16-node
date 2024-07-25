@@ -1,9 +1,9 @@
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../lib/prisma";
-import { ClientError } from "../erros/client-error";
-import { env } from "../env";
+import { prisma } from "../../lib/prisma";
+import { ClientError } from "../../domain/erros/client-error";
+import { env } from "process";
 
 export async function confirmParticipant(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(

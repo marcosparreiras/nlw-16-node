@@ -1,12 +1,12 @@
 import { z } from "zod";
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { prisma } from "../lib/prisma";
-import { dayjs } from "../lib/dayjs";
-import { ClientError } from "../erros/client-error";
-import type { EmailProvider } from "../bondaries/email-provider";
-import { NodemailerEmailProvider } from "../adapters/nodemailer-email-provider";
-import { ConfirmTripEmail } from "../emails/confirm-trip-email";
+import { prisma } from "../../lib/prisma";
+import { dayjs } from "../../lib/dayjs";
+import { ClientError } from "../../domain/erros/client-error";
+import type { EmailProvider } from "../../domain/bondaries/email-provider";
+import { NodemailerEmailProvider } from "../../adapters/nodemailer-email-provider";
+import { ConfirmTripEmail } from "../../emails/confirm-trip-email";
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

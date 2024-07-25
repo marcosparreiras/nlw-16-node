@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
-import type { Email, EmailProvider } from "../bondaries/email-provider";
-import { ClientError } from "../erros/client-error";
+import type { Email, EmailProvider } from "../domain/bondaries/email-provider";
+import { ClientError } from "../domain/erros/client-error";
 
 export class NodemailerEmailProvider implements EmailProvider {
   public async sendEmail(email: Email): Promise<void> {

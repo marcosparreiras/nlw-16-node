@@ -1,12 +1,12 @@
 import { z } from "zod";
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { prisma } from "../lib/prisma";
-import { ClientError } from "../erros/client-error";
-import { env } from "../env";
-import type { EmailProvider } from "../bondaries/email-provider";
-import { NodemailerEmailProvider } from "../adapters/nodemailer-email-provider";
-import { ConfirmPresenceEmail } from "../emails/confirm-presence-email";
+import { prisma } from "../../lib/prisma";
+import { ClientError } from "../../domain/erros/client-error";
+import { env } from "../../env";
+import type { EmailProvider } from "../../domain/bondaries/email-provider";
+import { ConfirmPresenceEmail } from "../../emails/confirm-presence-email";
+import { NodemailerEmailProvider } from "../../adapters/nodemailer-email-provider";
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(

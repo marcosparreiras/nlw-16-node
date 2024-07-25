@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
-import { ClientError } from "../erros/client-error";
+import { ClientError } from "../../domain/erros/client-error";
 
 export function errorHandler(
   error: unknown,

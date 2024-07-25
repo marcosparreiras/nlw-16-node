@@ -1,4 +1,4 @@
-import type { Email } from "../bondaries/email-provider";
+import type { Email } from "../domain/bondaries/email-provider";
 import { dayjs } from "../lib/dayjs";
 
 export abstract class EmailSuperType {
