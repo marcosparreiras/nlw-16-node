@@ -23,6 +23,10 @@ export class Participant {
     return this.isOwner;
   }
 
+  public confirm(): void {
+    this.isConfirmed = true;
+  }
+
   private constructor(
     id: string,
     email: string,
