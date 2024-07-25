@@ -80,6 +80,26 @@ export class Trip {
     return link;
   }
 
+  public setDestination(destination: string): void {
+    this.destination = destination;
+  }
+
+  public reschedule(startsAt: Date, endsAt: Date): void {
+    this.checkDates(startsAt, endsAt);
+    this.startsAt = startsAt;
+    this.endsAt = endsAt;
+  }
+
+  protected checkDates(startsAt: Date, endsAt: Date): void {
+    if (dayjs(startsAt).isBefore(new Date())) {
+      throw new ClientError("Invalid trip start date");
+    }
+
+    if (dayjs(endsAt).isBefore(startsAt)) {
+      throw new ClientError("Invalid trip end date");
+    }
+  }
+
   private constructor(
     id: string,
     destination: string,
@@ -92,13 +112,7 @@ export class Trip {
     links: Link[],
     activities: Activity[]
   ) {
-    if (dayjs(startsAt).isBefore(new Date())) {
-      throw new ClientError("Invalid trip start date");
-    }
-
-    if (dayjs(endsAt).isBefore(startsAt)) {
-      throw new ClientError("Invalid trip end date");
-    }
+    this.checkDates(startsAt, endsAt);
     this.id = id;
     this.destination = destination;
     this.startsAt = startsAt;
