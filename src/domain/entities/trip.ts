@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { ClientError } from "../erros/client-error";
 import { dayjs } from "../../lib/dayjs";
 import { Participant } from "./participant";
-import type { Link } from "./link";
+import { Link } from "./link";
 import { Activity } from "./activity";
 
 export class Trip {
@@ -72,6 +72,12 @@ export class Trip {
     const activity = Activity.create({ title, occurs_at: occursAt });
     this.activities.push(activity);
     return activity;
+  }
+
+  public addLink(title: string, url: string): Link {
+    const link = Link.create({ title, url });
+    this.links.push(link);
+    return link;
   }
 
   private constructor(
