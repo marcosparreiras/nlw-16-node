@@ -2,7 +2,7 @@ import { dayjs } from "../../lib/dayjs";
 
 type EmailData = {
   to: {
-    name: string | null;
+    name: string;
     address: string;
   };
   from: {
@@ -26,7 +26,7 @@ export abstract class Email {
     name: string;
     address: string;
   } {
-    return { name: this.data.to.name ?? "", address: this.data.to.address };
+    return this.data.to;
   }
   public getFrom(): {
     name: string;

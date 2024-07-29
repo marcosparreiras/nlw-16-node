@@ -17,7 +17,7 @@ export class ConfirmPresenceEmail extends Email {
     const confirmationLink = `${env.API_BASE_URL}/participants/${input.tripParticipantId}/confirm`;
 
     const to = {
-      name: input.tripParticipantName,
+      name: input.tripParticipantName ?? "",
       address: input.tripParticipantEmail,
     };
 
