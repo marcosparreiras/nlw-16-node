@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
-import type { Email, EmailProvider } from "../domain/bondaries/email-provider";
+import type { EmailProvider } from "../domain/bondaries/email-provider";
 import { ClientError } from "../domain/erros/client-error";
+import type { Email } from "../domain/value-objects/email";
 
 export class NodemailerEmailProvider implements EmailProvider {
   public async sendEmail(email: Email): Promise<void> {
@@ -15,7 +16,12 @@ export class NodemailerEmailProvider implements EmailProvider {
       },
     });
 
-    const messageInfo = await transporter.sendMail(email);
+    const messageInfo = await transporter.sendMail({
+      to: email.getTo(),
+      from: email.getFrom(),
+      subject: email.getSubject(),
+      html: email.getHtml(),
+    });
     if (nodemailer.getTestMessageUrl(messageInfo) === false) {
       throw new ClientError("Fail to send emails");
     }

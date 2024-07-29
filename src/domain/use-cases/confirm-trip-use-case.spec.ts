@@ -1,6 +1,7 @@
 import { Trip } from "../entities/trip";
 import { FakeEmailProvider } from "../stubs/fake-email-provider";
 import { InMemoryTripRepository } from "../stubs/in-memory-trip-repository";
+import { ConfirmPresenceEmail } from "../value-objects/confirm-presence-email";
 import { ConfirmTripUseCase } from "./confirm-trip-use-case";
 
 describe("ConfirmTripUseCase", () => {
@@ -50,5 +51,7 @@ describe("ConfirmTripUseCase", () => {
     await sut.execute(input);
 
     expect(emailProvider.sentEmails).toHaveLength(2);
+    expect(emailProvider.sentEmails[1]).toBeInstanceOf(ConfirmPresenceEmail);
+    expect(emailProvider.sentEmails[0]).toBeInstanceOf(ConfirmPresenceEmail);
   });
 });

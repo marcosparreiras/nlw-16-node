@@ -1,6 +1,5 @@
-import type { Email } from "../domain/bondaries/email-provider";
-import { env } from "../env";
-import { EmailSuperType } from "./email-super-type";
+import { env } from "../../env";
+import { Email } from "./email";
 
 type Input = {
   destination: string;
@@ -11,19 +10,19 @@ type Input = {
   tripParticipantEmail: string;
 };
 
-export class ConfirmPresenceEmail extends EmailSuperType {
-  public static create(input: Input): Email {
+export class ConfirmPresenceEmail extends Email {
+  public static create(input: Input): ConfirmPresenceEmail {
     const formattedStartDate = this.fomartDate(input.startsDate);
     const formattedEndDate = this.fomartDate(input.endsDate);
     const confirmationLink = `${env.API_BASE_URL}/participants/${input.tripParticipantId}/confirm`;
 
     const to = {
       name: input.tripParticipantName,
-      email: input.tripParticipantEmail,
+      address: input.tripParticipantEmail,
     };
 
     const subject = `Confirme a sua presença na viagem para ${input.destination} em ${formattedStartDate}`;
-    const content = `
+    const html = `
     <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
       <p>Você você foi convidado para uma viagem para <strong>${input.destination}</strong>, nas datas de <strong>${formattedStartDate}</strong> a <strong>${formattedEndDate}</strong><p>
       <p></p>
@@ -35,8 +34,10 @@ export class ConfirmPresenceEmail extends EmailSuperType {
     </div>
     `.trim();
 
-    const email: Email = this.makeEmail(to, subject, content);
-
-    return email;
+    return new ConfirmPresenceEmail({
+      to,
+      subject,
+      html,
+    });
   }
 }

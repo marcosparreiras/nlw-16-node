@@ -3,12 +3,10 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { prisma } from "../../lib/prisma";
 import { ClientError } from "../../domain/erros/client-error";
-import type {
-  Email,
-  EmailProvider,
-} from "../../domain/bondaries/email-provider";
-import { ConfirmPresenceEmail } from "../../emails/confirm-presence-email";
+import type { EmailProvider } from "../../domain/bondaries/email-provider";
+
 import { NodemailerEmailProvider } from "../../adapters/nodemailer-email-provider";
+import { ConfirmPresenceEmail } from "../../domain/value-objects/confirm-presence-email";
 
 export async function createInvite(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -43,7 +41,7 @@ export async function createInvite(app: FastifyInstance) {
       });
 
       const emailProvider: EmailProvider = new NodemailerEmailProvider();
-      const email: Email = ConfirmPresenceEmail.create({
+      const email = ConfirmPresenceEmail.create({
         destination: trip.destination,
         endsDate: trip.endsAt,
         startsDate: trip.startsAt,

@@ -5,8 +5,8 @@ import { prisma } from "../../lib/prisma";
 import { ClientError } from "../../domain/erros/client-error";
 import { env } from "../../env";
 import type { EmailProvider } from "../../domain/bondaries/email-provider";
-import { ConfirmPresenceEmail } from "../../emails/confirm-presence-email";
 import { NodemailerEmailProvider } from "../../adapters/nodemailer-email-provider";
+import { ConfirmPresenceEmail } from "../../domain/value-objects/confirm-presence-email";
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(

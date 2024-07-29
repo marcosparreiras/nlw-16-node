@@ -1,7 +1,7 @@
-import { ConfirmPresenceEmail } from "../../emails/confirm-presence-email";
-import type { Email, EmailProvider } from "../bondaries/email-provider";
+import type { EmailProvider } from "../bondaries/email-provider";
 import type { TripRepository } from "../bondaries/trip-repository";
 import { ClientError } from "../erros/client-error";
+import { ConfirmPresenceEmail } from "../value-objects/confirm-presence-email";
 
 type Input = {
   tripId: string;
@@ -26,7 +26,7 @@ export class CreateInviteUseCase {
     const participant = trip.inviteParticipant(input.email);
     await this.tripRepository.update(trip);
 
-    const email: Email = ConfirmPresenceEmail.create({
+    const email = ConfirmPresenceEmail.create({
       destination: trip.getDestination(),
       endsDate: trip.getEndsAt(),
       startsDate: trip.getStartsAt(),

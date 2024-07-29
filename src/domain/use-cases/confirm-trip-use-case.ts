@@ -1,7 +1,7 @@
-import { ConfirmPresenceEmail } from "../../emails/confirm-presence-email";
 import type { EmailProvider } from "../bondaries/email-provider";
 import type { TripRepository } from "../bondaries/trip-repository";
 import { ClientError } from "../erros/client-error";
+import { ConfirmPresenceEmail } from "../value-objects/confirm-presence-email";
 
 type Input = {
   id: string;

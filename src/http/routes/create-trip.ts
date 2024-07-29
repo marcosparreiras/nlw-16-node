@@ -6,8 +6,7 @@ import { dayjs } from "../../lib/dayjs";
 import { ClientError } from "../../domain/erros/client-error";
 import type { EmailProvider } from "../../domain/bondaries/email-provider";
 import { NodemailerEmailProvider } from "../../adapters/nodemailer-email-provider";
-import { ConfirmTripEmail } from "../../emails/confirm-trip-email";
-import { CreateTripUseCase } from "../../domain/use-cases/create-trip-use-case";
+import { ConfirmTripEmail } from "../../domain/value-objects/confirm-trip-email";
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

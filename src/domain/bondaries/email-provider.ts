@@ -1,15 +1,4 @@
-export interface Email {
-  from: {
-    name: string;
-    address: string;
-  };
-  to: {
-    name: string;
-    address: string;
-  };
-  subject: string;
-  html: string;
-}
+import type { Email } from "../value-objects/email";
 
 export interface EmailProvider {
   sendEmail(email: Email): Promise<void>;

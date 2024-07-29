@@ -1,4 +1,5 @@
-import type { Email, EmailProvider } from "../bondaries/email-provider";
+import type { EmailProvider } from "../bondaries/email-provider";
+import type { Email } from "../value-objects/email";
 
 export class FakeEmailProvider implements EmailProvider {
   public sentEmails: Email[] = [];
